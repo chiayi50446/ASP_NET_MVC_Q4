@@ -1,0 +1,83 @@
+﻿@model MVC_Q4.ViewModels.DepartmentViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="l_margin r_margin">
+    <div class="tab_box">
+        <div class="tab_container">
+            <div id="tab1">
+                <div class="layout07">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
+                        @Html.AntiForgeryToken()
+                        
+                        <ul class="table10 box03">
+                            <li>
+                                <span>Department :</span>
+                                <span>
+                                    <span class="selectlabel">
+                                        @Html.DropDownListFor(model => model.Department.Id, Model.DropDown1, new { @class = "Department" })
+                                    </span>
+                                </span>
+                            </li>
+                            <li>
+                                <span>Sub-Department :</span>
+                                <span>
+                                    <span class="selectlabel">
+                                        @Html.DropDownListFor(model => model.SubDepartment.Id, Model.DropDown2, new { @class = "SubDepartment" })
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="line01"></div>
+                        <div class="button_area align_c">
+                            <button type="submit" class="button02">Go</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tableContainer">
+    <ul class="table10 box03">
+        @{
+            if (Model.Department != null)
+            {
+                <li>
+                    <span style="width: 165px;">Department :</span>
+                    <span>@Model.Department.Name </span>
+                </li>
+                <li>
+                    <span>SubDepartment :</span>
+                    <span>@Model.SubDepartment.Name</span>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.Department').change(function () { ChangeDepartment(); });
+    });
+    function ChangeDepartment() {
+        $.ajax({
+            url: '@Url.Action("GetSubDepart")',
+            data: { id: $(".Department").val() },
+            type: 'post',
+            async: false,
+            success: function (data) {
+                if (data.length > 0) {
+                    $('.SubDepartment').empty();
+                    $.each(data, function (i, item) {
+                        $('.SubDepartment').append('<option value="' + item.Value + '">' + item.Text + '</option>');
+                    });
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,37 @@
+[
+    {
+        "ParentId": "01",
+        "Id": "0101",
+        "Name": "IT_1"
+    },
+    {
+        "ParentId": "01",
+        "Id": "0102",
+        "Name": "IT_2"
+    },
+    {
+        "ParentId": "01",
+        "Id": "0103",
+        "Name": "IT_3"
+    },
+    {
+        "ParentId": "02",
+        "Id": "0201",
+        "Name": "CS_1"
+    },
+    {
+        "ParentId": "02",
+        "Id": "0202",
+        "Name": "CS_2"
+    },
+    {
+        "ParentId": "03",
+        "Id": "0301",
+        "Name": "MK_1"
+    },
+    {
+        "ParentId": "03",
+        "Id": "0302",
+        "Name": "MK_2"
+    }
+]

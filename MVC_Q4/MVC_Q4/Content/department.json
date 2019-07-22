@@ -1,0 +1,14 @@
+[
+    {
+        "Id": "01",
+        "Name": "IT"
+    },
+    {
+        "Id": "02",
+        "Name": "Customer Success"
+    },
+    {
+        "Id": "03",
+        "Name": "Marketing"
+    }
+]

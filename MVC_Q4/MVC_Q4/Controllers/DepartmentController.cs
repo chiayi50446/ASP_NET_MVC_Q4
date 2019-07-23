@@ -29,8 +29,8 @@ namespace MVC_Q4.Controllers
         [HttpPost]
         public ActionResult Index(DepartmentViewModel data)
         {
-            departmentData.Department = departmentRepository.GetDepartmentById(data.Department.Id);
-            departmentData.SubDepartment = departmentRepository.GetSubDepartmentById(data.SubDepartment.Id);
+            departmentData.Department = departmentRepository.GetDepartmentById(data.Department.Id) ?? new Department { Name = "Do not choose any department"};
+            departmentData.SubDepartment = departmentRepository.GetSubDepartmentById(data.SubDepartment.Id) ?? new SubDepartment { Name = "Do not choose any sub-department" };
             departmentData.DropDown1 = SetDropDown1();
             departmentData.DropDown2 = SetDropDown2(data.Department.Id);
             return View(departmentData);

@@ -11,29 +11,29 @@ namespace MVC_Q4.Controllers
 {
     public class DepartmentController : Controller
     {
-        private IDepartmentRepository departmentRepository;
-        private DepartmentViewModel departmentData;
+        private IDepartmentRepository _departmentRepository;
+        private DepartmentViewModel _departmentData;
         public DepartmentController()
         {
-            departmentRepository = new DepartmentRepository();
-            departmentData = new DepartmentViewModel();
+            _departmentRepository = new DepartmentRepository();
+            _departmentData = new DepartmentViewModel();
         }
         // GET: Department
         public ActionResult Index()
         {
-            departmentData.DropDown1 = SetDropDown1();
-            departmentData.DropDown2 = SetDropDown2();
-            return View(departmentData);
+            _departmentData.DropDown1 = SetDropDown1();
+            _departmentData.DropDown2 = SetDropDown2();
+            return View(_departmentData);
         }
 
         [HttpPost]
         public ActionResult Index(DepartmentViewModel data)
         {
-            departmentData.Department = departmentRepository.GetDepartmentById(data.Department.Id) ?? new Department { Name = "Do not choose any department"};
-            departmentData.SubDepartment = departmentRepository.GetSubDepartmentById(data.SubDepartment.Id) ?? new SubDepartment { Name = "Do not choose any sub-department" };
-            departmentData.DropDown1 = SetDropDown1();
-            departmentData.DropDown2 = SetDropDown2(data.Department.Id);
-            return View(departmentData);
+            _departmentData.Department = _departmentRepository.GetDepartmentById(data.Department.Id) ?? new Department { Name = "Do not choose any department"};
+            _departmentData.SubDepartment = _departmentRepository.GetSubDepartmentById(data.SubDepartment.Id) ?? new SubDepartment { Name = "Do not choose any sub-department" };
+            _departmentData.DropDown1 = SetDropDown1();
+            _departmentData.DropDown2 = SetDropDown2(data.Department.Id);
+            return View(_departmentData);
         }
 
         // 初始化DropDownList      
@@ -48,7 +48,7 @@ namespace MVC_Q4.Controllers
         public List<SelectListItem> SetDropDown1()
         {
             List<SelectListItem> items = GetSelectItem();
-            List<Department> departments = departmentRepository.GetDepartmentLst();
+            List<Department> departments = _departmentRepository.GetDepartmentLst();
             items.AddRange( departments.Select(s => new SelectListItem()
             {
                 Text = s.Id + " : " + s.Name,
@@ -63,7 +63,7 @@ namespace MVC_Q4.Controllers
             List<SelectListItem> items = GetSelectItem();
             if (id != "")
             {
-                List<SubDepartment> subDepartments = departmentRepository.GetSubDepartmentList().Where(x => x.ParentId == id).ToList();
+                List<SubDepartment> subDepartments = _departmentRepository.GetSubDepartmentList().Where(x => x.ParentId == id).ToList();
                 items.AddRange(subDepartments.Select(s => new SelectListItem()
                 {
                     Text = s.Id + " : " + s.Name,
